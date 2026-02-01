@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Khushi… be my Valentine? 💘</title>
+  <style>
+    :root{
+      --bg1:#ffd1dc;
+      --bg2:#ff7aa2;
+      --card:#ffffffd6;
+      --text:#1f1f1f;
+      --yes:#22c55e;
+      --no:#ef4444;
+      --shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      color:var(--text);
+      overflow:hidden;
+    }
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.38;
+    }
+    .heart{
+      position:absolute;
+      font-size: clamp(14px, 2.6vw, 28px);
+      animation: floatUp linear infinite;
+      transform: translateY(110vh);
+    }
+    @keyframes floatUp{
+      from { transform: translateY(110vh) rotate(0deg); }
+      to   { transform: translateY(-25vh) rotate(360deg); }
+    }
+    .card{
+      width:min(640px, 92vw);
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 30px 22px;
+      text-align:center;
+      position:relative;
+    }
+    .badge{
+      display:inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.06);
+      font-weight:700;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4.8vw, 46px);
+      letter-spacing:.3px;
+    }
+    p{
+      margin: 0 0 16px;
+      font-size: clamp(16px, 2.2vw, 18px);
+      line-height:1.55;
+      opacity:.95;
+    }
+    .names{
+      font-weight:900;
+    }
+    .buttons{
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top: 18px;
+      position:relative;
+      z-index:2;
+    }
+    button{
+      border:0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,.14);
+      user-select:none;
+      touch-action: manipulation;
+    }
+    button:active{ transform: translateY(1px) scale(.99); }
+    .yes{
+      background: linear-gradient(180deg, #34d399, var(--yes));
+      color:white;
+    }
+    .no{
+      background: linear-gradient(180deg, #fb7185, var(--no));
+      color:white;
+      position:relative;
+    }
+    .yes:hover, .no:hover{ filter: brightness(1.04); transform: translateY(-1px); }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 13px;
+      opacity:.75;
+    }
+    .meterWrap{
+      margin: 16px auto 0;
+      width:min(420px, 88%);
+      background: rgba(0,0,0,.06);
+      border-radius: 999px;
+      padding: 6px;
+      display:flex;
+      gap:6px;
+      align-items:center;
+    }
+    .meterLabel{
+      font-size: 12px;
+      font-weight:800;
+      padding: 0 8px;
+      opacity:.8;
+      white-space:nowrap;
+    }
+    .meter{
+      height: 12px;
+      flex:1;
+      background: rgba(255,255,255,.6);
+      border-radius: 999px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .fill{
+      height:100%;
+      width: 10%;
+      background: linear-gradient(90deg, #22c55e, #f43f5e);
+      border-radius: 999px;
+      transition: width .25s ease;
+    }
+
+    .result{
+      margin-top: 18px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      display:none;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .result.show{ display:block; }
+    .big{
+      font-size: clamp(22px, 3.6vw, 32px);
+      font-weight: 1000;
+      margin-bottom: 6px;
+    }
+    .small{ opacity:.92; }
+    .footer{
+      margin-top: 16px;
+      font-size: 12px;
+      opacity:.7;
+    }
+    .tiny{
+      font-size: 11px;
+      opacity:.65;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card">
+    <div class="badge">Official Valentine Proposal • <span class="names">Aniket</span> ➜ <span class="names">Khushi</span></div>
+
+    <h1>Khushi… will you be my Valentine? 💘</h1>
+
+    <p>
+      Dear <span class="names">Khushi</span>, this is <span class="names">Aniket</span>.
+      I’m here to ask a very serious question with very unserious intentions.
+      Choose wisely. Your next click will be emotionally documented. 😌
+    </p>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">YES 😭💖</button>
+      <button class="no" id="noBtn">No 😏</button>
+    </div>
+
+    <div class="hint" id="hint">Go on… press “No”. I dare you. 👀</div>
+
+    <div class="meterWrap" aria-label="Valentine Pressure Meter">
+      <div class="meterLabel">Pressure</div>
+      <div class="meter"><div class="fill" id="fill"></div></div>
+      <div class="meterLabel" id="meterText">Low 😇</div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="big" id="resultTitle">VALIDATED ✅💘</div>
+      <div class="small" id="resultText">Congratulations Khushi, you just made Aniket insufferably happy 🥰</div>
+      <div class="tiny" id="receipt">Receipt generated: 14-Feb • Love Tax: 100% • Refunds: none 😌</div>
+    </div>
+
+    <div class="footer">Made with love (and mild manipulation) 💌</div>
+  </div>
+
+  <script>
+    // Floating hearts
+    const heartsWrap = document.getElementById("hearts");
+    const heartEmojis = ["💗","💖","💘","💕","💞","💓","✨","🥺"];
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (6 + Math.random() * 8) + "s";
+      h.style.opacity = (0.2 + Math.random() * 0.6).toFixed(2);
+      h.style.fontSize = (14 + Math.random() * 18) + "px";
+      heartsWrap.appendChild(h);
+      setTimeout(() => h.remove(), 15000);
+    }
+    for (let i=0;i<18;i++) setTimeout(spawnHeart, i*220);
+    setInterval(spawnHeart, 650);
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const result = document.getElementById("result");
+    const hint   = document.getElementById("hint");
+    const fill   = document.getElementById("fill");
+    const meterText = document.getElementById("meterText");
+
+    let noCount = 0;
+
+    const savageLines = [
+      "Interesting choice. Wrong, but interesting. 😌",
+      "Khushi… don’t do this to me. I’m fragile (lying). 😭",
+      "That button is purely decorative. Try again. 😏",
+      "You clicked No. I clicked ‘deny your denial’. 💅",
+      "Okay now you’re just flirting. 😤💘",
+      "Final warning: Aniket will become dramatic. 🥲",
+      "This is harassment… of my feelings. 😭",
+      "Alright. I’m taking control. 😈"
+    ];
+
+    function setMeter(){
+      const pct = Math.min(10 + noCount * 12, 100);
+      fill.style.width = pct + "%";
+
+      if (pct < 30) meterText.textContent = "Low 😇";
+      else if (pct < 55) meterText.textContent = "Rising 😏";
+      else if (pct < 80) meterText.textContent = "Danger 😤";
+      else meterText.textContent = "MAX 😈";
+    }
+
+    function showResult(title, text){
+      document.getElementById("resultTitle").textContent = title;
+      document.getElementById("resultText").textContent = text;
+      result.classList.add("show");
+      hint.style.display = "none";
+    }
+
+    function confettiPop(){
+      for (let i=0;i<40;i++){
+        const s = document.createElement("div");
+        s.textContent = ["✨","💞","🎉","💘","🥰"][Math.floor(Math.random()*5)];
+        s.style.position="fixed";
+        s.style.left = (Math.random()*100) + "vw";
+        s.style.top = "-10vh";
+        s.style.fontSize = (16 + Math.random()*18) + "px";
+        s.style.transition = "transform 1.2s ease, opacity 1.2s ease";
+        s.style.zIndex = 50;
+        document.body.appendChild(s);
+        requestAnimationFrame(() => {
+          s.style.transform = `translateY(${110 + Math.random()*30}vh) rotate(${Math.random()*720}deg)`;
+          s.style.opacity = 0;
+        });
+        setTimeout(() => s.remove(), 1400);
+      }
+    }
+
+    yesBtn.addEventListener("click", () => {
+      showResult("YAYYY KHUSHI!!! 💖", "Okay cool, so we’re officially cute now. Aniket approves. 😌💘");
+      confettiPop();
+      // Lock buttons
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+      yesBtn.style.filter = "grayscale(0)";
+      noBtn.style.filter = "grayscale(0.6)";
+    });
+
+    // Make "No" dodge like a guilty conscience
+    function moveNoButton(){
+      const pad = 12;
+      const bw = noBtn.offsetWidth;
+      const bh = noBtn.offsetHeight;
+      const maxX = window.innerWidth  - bw - pad;
+      const maxY = window.innerHeight - bh - pad;
+
+      const x = Math.max(pad, Math.floor(Math.random() * maxX));
+      const y = Math.max(pad, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    function escalate(){
+      noCount++;
+      setMeter();
+
+      // Make YES bigger with each No attempt
+      const scale = 1 + Math.min(noCount * 0.10, 0.75);
+      yesBtn.style.transform = `scale(${scale})`;
+      yesBtn.style.boxShadow = `0 18px 55px rgba(34,197,94,${0.18 + noCount*0.05})`;
+
+      hint.textContent = savageLines[Math.min(noCount-1, savageLines.length-1)];
+
+      // After enough "No", override to YES (savage mode)
+      if (noCount >= 8) {
+        showResult("DECISION MADE ✅😈", "You clicked No 8 times. That’s basically a yes with extra steps. 💘");
+        confettiPop();
+        yesBtn.disabled = true;
+        noBtn.disabled = true;
+      }
+    }
+
+    // Desktop hover dodge
+    noBtn.addEventListener("mouseenter", () => {
+      moveNoButton();
+      escalate();
+    });
+
+    // Mobile tap dodge
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNoButton();
+      escalate();
+    });
+
+    window.addEventListener("resize", () => {
+      if (noBtn.style.position === "fixed") moveNoButton();
+    });
+
+    setMeter();
+  </script>
+</body>
+</html>
